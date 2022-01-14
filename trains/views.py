@@ -20,7 +20,7 @@ def home(request,pk = None):
     return render(request,'trains/home.html',context)
 
 class TrainListView(ListView):
-    paginate_by = 2
+    paginate_by = 6
     model = Train
     template_name = 'trains/home.html'
 
