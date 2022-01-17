@@ -1,30 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content%}
-<h1>Список городов</h1>
+<h1>Список маршрутов</h1>
 <div class="row">
     <div class="col-md-8 mx-auto my-2">
         <table class="table table-striped">
+            <tr>
+                <th>Нзвание</th>
+                <th>Откуда</th>
+                <th>Куда</th>
+                <th>Время в пути</th>
+            </tr>
         {% for object in page_obj %}
             <tr>
                 <td>
-                    <a href="{% url 'cities:detail' pk=object.pk %}">{{object.name}}</a>
+                    <a href="{% url 'detail' pk=object.pk %}">{{object.name}}</a>
                 </td>
-                 {% if user.is_authenticated %}
-                <td>
-                    <a href="{% url 'cities:update' pk=object.pk %}">
-                        <button type="submit" class="btn btn-primary">Редактировать</button>
-                    </a>
-                </td>
-                <td>
-                    <a href="{% url 'cities:update' pk=object.pk %}">
-                        <button type="submit" class="btn btn-danger">Удалить</button>
-                    </a>
-                </td>
-                {%else%}
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
-            {% endif%}
+                <td>{{object.from_city}}</td>
+                <td>{{object.to_city}}</td>
+                <td>{{object.travel_times}}</td>
+
+
             </tr>
 
         {% endfor %}
@@ -60,14 +56,6 @@
     </li>
   </ul>
 </nav>
- {% if user.is_authenticated %}
-<div class="row">
-    <div class="col-md-4">
-        <form action="" method="post">{% csrf_token %}
-         {{ form.as_p }}
-         <input type="submit" value="submit">
-        </form>
-    </div>
-</div>
-{%endif%}
+
+
 {% endblock %}
